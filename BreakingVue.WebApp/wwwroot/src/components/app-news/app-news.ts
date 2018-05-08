@@ -2,14 +2,19 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import Axios from 'axios';
 
+import AppArticle from '../app-article/app-article.vue';
+
 import { EventHub } from '../../services/event-hub-service';
 import { Article } from '../../entities/article';
 
 @Component({
-    name: 'app-news'
+    name: 'app-news',
+    components: {
+        AppArticle
+    }
 })
 export default class AppNews extends Vue {
-    news: Article[] = [];
+    news = null;
 
     created() {
         EventHub.$on('header-search', this.onHeaderSearch);

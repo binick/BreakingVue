@@ -1,0 +1,18 @@
+<div class='uk-card uk-card-hover' :class='{ danger:isTrump }'>
+    <div class="uk-card-badge uk-label">{{ article.source.name }}</div>
+    <div class='uk-card-header'>
+        <div class='uk-width-auto' v-if='article.urlToImage !== ""'>
+            <img height='200' :src='article.urlToImage'>
+        </div>
+        <h3 class='uk-card-title'>{{ article.title }}</h3>
+        <p class='uk-text-meta' v-if='article.publishedAt !== ""'>
+            <time :datetime='article.publishedAt'>{{ publishedAt }}</time>
+        </p>
+    </div>
+    <div class='uk-card-body'>
+        <p>{{ article.description }}</p>
+    </div>
+    <div class='uk-card-footer'>
+        <a :href='article.url' target='_blank' class='uk-button uk-button-text'>Read more</a>
+    </div>
+</div>

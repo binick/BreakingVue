@@ -12,8 +12,8 @@ namespace BreakingVue.WebApp.Services
         #region Fields
         const string BASE_URL = "https://newsapi.org";
         const string ENDPOINT_TOP_HEADLINES = "/v2/top-headlines";
-        const string API_KEY = "YOUR_API_KEY";
-        readonly HttpClient _client;
+        readonly HttpClient client;
+        readonly string apiKey;
         #endregion
 
         #region Properties
@@ -22,11 +22,13 @@ namespace BreakingVue.WebApp.Services
         #region Constructors
         public NewsService()
         {
-            _client = new HttpClient
+            apiKey = System.IO.File.ReadAllText($"{Environment.CurrentDirectory}/newsapi_key");
+
+            client = new HttpClient
             {
                 BaseAddress = new Uri(BASE_URL)
             };
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", API_KEY);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
         }
         #endregion
 
@@ -43,7 +45,7 @@ namespace BreakingVue.WebApp.Services
 
             try
             {
-                return await (await _client.GetAsync($"{ENDPOINT_TOP_HEADLINES}?country={country}")).Content.ReadAsStringAsync();
+                return await (await client.GetAsync($"{ENDPOINT_TOP_HEADLINES}?country={country}")).Content.ReadAsStringAsync();
             }
             catch (Exception ex)
             {
@@ -56,7 +58,7 @@ namespace BreakingVue.WebApp.Services
         {
             try
             {
-                return await (await _client.GetAsync($"{ENDPOINT_TOP_HEADLINES}?q={query}")).Content.ReadAsStringAsync();
+                return await (await client.GetAsync($"{ENDPOINT_TOP_HEADLINES}?q={query}")).Content.ReadAsStringAsync();
             }
             catch (Exception ex)
             {
