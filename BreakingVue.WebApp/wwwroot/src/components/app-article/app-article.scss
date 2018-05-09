@@ -25,5 +25,9 @@
 }
 
 .danger {
-    background-color: red !important;
+    background-color:rgba($color: red, $alpha: 0.5) !important; 
+    
+    &:hover {
+        background-color:rgba($color: red, $alpha: 1.0) !important;
+    }
 }

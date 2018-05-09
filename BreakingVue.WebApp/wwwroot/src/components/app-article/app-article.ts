@@ -1,23 +1,19 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 
 import { Article } from '../../entities/article';
 
 @Component({
-    name: 'app-article',
-    props: {
-        article: {}
-    }
+    name: 'app-article'
 })
 export default class AppArticle extends Vue {
-    //_article: Article = this.$props.article;
+    @Prop(Object) article!: Article;
 
     get publishedAt() {
-        let publishedAtDate = new Date(this.$props.article.publishedAt);
+        let publishedAtDate = new Date(this.article.publishedAt);
         return publishedAtDate.toLocaleDateString() + ' ' + publishedAtDate.toLocaleTimeString();
     }
 
     get isTrump() {
-        return (this.$props.article.title.toLowerCase().indexOf('trump') || this.$props.article.description.toLowerCase().indexOf('trump')) !== -1;
+        return (this.article.title.toLowerCase().indexOf('trump') || this.article.description.toLowerCase().indexOf('trump')) !== -1;
     }
 }
