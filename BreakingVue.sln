@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BreakingVue.WebApp", "BreakingVue.WebApp\BreakingVue.WebApp.csproj", "{A0172704-9E7A-429E-AA9C-228A0ED86A56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BreakingVue.WebApp", "BreakingVue.WebApp\BreakingVue.WebApp.csproj", "{A0172704-9E7A-429E-AA9C-228A0ED86A56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BreakingVue.WebApp.Test", "BreakingVue.WebApp.Test\BreakingVue.WebApp.Test.csproj", "{DF7B87B6-0EE2-4D36-ACCA-891E8BAE0E55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A0172704-9E7A-429E-AA9C-228A0ED86A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0172704-9E7A-429E-AA9C-228A0ED86A56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0172704-9E7A-429E-AA9C-228A0ED86A56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF7B87B6-0EE2-4D36-ACCA-891E8BAE0E55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF7B87B6-0EE2-4D36-ACCA-891E8BAE0E55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF7B87B6-0EE2-4D36-ACCA-891E8BAE0E55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF7B87B6-0EE2-4D36-ACCA-891E8BAE0E55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

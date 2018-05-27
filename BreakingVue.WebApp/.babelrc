@@ -1,0 +1,22 @@
+{
+    "presets": [
+        "@babel/env",
+        "@babel/typescript"
+    ],
+    "plugins": [
+        [
+            "@babel/plugin-proposal-decorators",
+            {
+                "legacy": true
+            }
+        ],
+        [
+            "@babel/plugin-proposal-class-properties",
+            {
+                "spec": true,
+                "loose": true
+            }
+        ],
+        "@babel/plugin-proposal-object-rest-spread"
+    ]
+}

@@ -1,14 +1,17 @@
 {
+    "compileOnSave": false,
     "compilerOptions": {
         "sourceMap": true,
-        "target": "es6",
+        "target": "esnext",
         "strict": true,
-        "module": "es6",
+        "module": "commonjs",
         "moduleResolution": "node",
         "noImplicitReturns": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "suppressImplicitAnyIndexErrors": true
+        "suppressImplicitAnyIndexErrors": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true
     },
     "exclude": [
         "node_modules",

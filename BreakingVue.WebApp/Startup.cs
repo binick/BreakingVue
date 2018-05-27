@@ -16,6 +16,7 @@ namespace BreakingVue.WebApp
         {
             services.AddTransient(typeof(NewsService));
             services.AddMvc();
+            services.AddCors();           
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -25,6 +26,7 @@ namespace BreakingVue.WebApp
 
             app.UseStaticFiles();
             app.UseMvc();
+            app.UseCors(builder => builder.AllowAnyOrigin());
         }
     }
 }
