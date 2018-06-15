@@ -1,4 +1,4 @@
-import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
+import { Vue, Component } from 'vue-property-decorator';
 
 import Axios from 'axios';
 
@@ -24,8 +24,8 @@ export default class AppNews extends Vue {
         EventHub.$off('header-search', this.onHeaderSearch);
     }
 
-    mounted() {
-        Axios.get('/v1/getNews').then((response) => {
+    async mounted() {
+        await Axios.get('/v1/getNews').then((response) => {
             console.log(response);
             this.news = response.data.articles;
         }, (response) => {
@@ -33,8 +33,8 @@ export default class AppNews extends Vue {
         });
     }
 
-    onHeaderSearch(value: string) {
-        Axios.get('/v1/search/' + value).then((response) => {
+    async onHeaderSearch(value: string) {
+        await Axios.get('/v1/search/' + value).then((response) => {
             console.log(response);
             this.news = response.data.articles;
         }, (response) => {

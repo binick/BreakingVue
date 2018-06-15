@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Vue, Component } from 'vue-property-decorator';
 
 import { EventHub } from '../../services/event-hub-service';
 
@@ -10,7 +9,7 @@ export default class AppHeader extends Vue {
     searchText: string = '';
 
     search() {
-        console.log('AppHeader.search:' + this.searchText);
+        this.$emit('header-search', this.searchText);
         EventHub.$emit('header-search', this.searchText);
         this.searchText = '';
     }
