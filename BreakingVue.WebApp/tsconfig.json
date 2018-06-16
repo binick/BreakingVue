@@ -7,6 +7,8 @@
         "module": "commonjs",
         "moduleResolution": "node",
         "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "suppressImplicitAnyIndexErrors": true,
@@ -15,8 +17,6 @@
     },
     "exclude": [
         "node_modules",
-        "bower_components",
-        "wwwroot/specs/specs.bundle.js",
-        "wwwroot/dist/build.js"
+        "bower_components"
     ]
 }
