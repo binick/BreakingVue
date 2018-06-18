@@ -9,8 +9,6 @@ module.exports = function (config) {
             'sinon'
         ],
         files: [
-            { pattern: 'specs/index.html', watch: true },
-            { pattern: 'dist/build.js', watch: true },
             { pattern: 'specs/spec.bundle.js', watch: true }         
         ],
         reporters: ['mocha'],
@@ -26,10 +24,8 @@ module.exports = function (config) {
         },
         port: 9876,
         colors: true,
-        logLevel: config.LOG_INFO,
-        autoWatch: true,      
-        logLevel: config.LOG_INFO,
-        color: true,
+        logLevel: config.LOG_WARN,
+        autoWatch: true,
         browsers: ['PhantomJS'],
         singleRun: true
     });

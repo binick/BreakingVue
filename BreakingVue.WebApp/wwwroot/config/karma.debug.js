@@ -10,13 +10,11 @@ module.exports = function (config) {
             'sinon'
         ],
         files: [
-            { pattern: 'specs/index.html', watch: true },
-            { pattern: 'dist/build.js', watch: true },
-            { pattern: 'specs/spec.bundle.js', watch: true }         
+            { pattern: 'specs/spec.bundle.js', watch: true }
         ],
         reporters: ['mocha'],
         preprocessors: {
-            'specs/spec.ts': ['webpack']
+            'specs/spec.ts': ['webpack']       
         },
         webpack: webpackConfig,
         webpackServer: {

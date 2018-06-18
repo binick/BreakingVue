@@ -17,7 +17,11 @@ gulp.task('test-debug', function () {
     exec('start cmd @cmd /k npm run test:debug', callback);
 })
 
-gulp.task('debug', gulp.parallel('start-server', 'compile-test', 'compile-dev', 'test-debug'));
+gulp.task('coverage-watch', function(){
+    exec('start cmd @cmd /k npm run coverage:debug', callback);
+})
+
+gulp.task('debug', gulp.parallel('start-server', 'compile-test', 'compile-dev', 'test-debug', 'coverage-watch'));
 
 var callback = (error, stdout, stderr) => {
     if (error !== null)

@@ -83,7 +83,11 @@ describe('#AppArticle', () => {
         assert(wrapper.contains('div.uk-card-header div.uk-width-auto img'));
     })
 
-    it('given an news then publishedAt is Date', () => {
-        expect(wrapper.vm.publishedAt).that.is.a('string');
+    it('given an news when "publishedAt" is not null then "publishedAt" is formatted correctly', () => {
+        let date = new Date('2018-06-10T17:01:06.911Z');
+        let dateFormat = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        var component = new AppArticle();
+        component.article = article;
+        expect(component.publishedAt).to.deep.equal(dateFormat);
     })
 })

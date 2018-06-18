@@ -1,6 +1,6 @@
 import { Vue, Component } from 'vue-property-decorator';
 
-import Axios from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 
 import AppArticle from '../app-article/app-article.vue';
 
@@ -25,20 +25,36 @@ export default class AppNews extends Vue {
     }
 
     async mounted() {
-        await Axios.get('/v1/getNews').then((response) => {
-            console.log(response);
-            this.news = response.data.articles;
-        }, (response) => {
-            console.log(response);
-        });
+        this.news = await this.getNews();
     }
 
     async onHeaderSearch(value: string) {
-        await Axios.get('/v1/search/' + value).then((response) => {
-            console.log(response);
-            this.news = response.data.articles;
+        this.news = await this.searchNews(value);
+    }
+
+    async getNews(): Promise<Article[]> {
+        return await Axios.get('/v1/getNews').then((response) => {
+            return this.onNewsRequestFullFilled(response);
         }, (response) => {
-            console.log(response);
+            return this.onNewsRequestRejected(response);
         });
+    }
+
+    async searchNews(value: string): Promise<Article[]> {
+        return await Axios.get('/v1/search/' + value).then((response) => {
+            return this.onNewsRequestFullFilled(response);
+        }, (response) => {
+            return this.onNewsRequestRejected(response);
+        });
+    }
+
+    onNewsRequestFullFilled(response: AxiosResponse<any>): Article[] {
+        console.log(response);
+        return (response.data.articles as Article[]);
+    }
+
+    onNewsRequestRejected(response: AxiosResponse<any>): Article[] {
+        console.log(response);
+        throw new Error(JSON.stringify(response));
     }
 }

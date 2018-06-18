@@ -259,4 +259,9 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+# BreakingVue
 /BreakingVue.WebApp/newsapi_key
+/BreakingVue.WebApp/wwwroot/dist/
+/BreakingVue.WebApp/wwwroot/specs/coverage/
+*.map

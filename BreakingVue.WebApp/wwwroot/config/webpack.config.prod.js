@@ -6,35 +6,36 @@ const env = require('../environment/prod.env')
 
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-webpackConfig.module.rules = [...webpackConfig.module.rules,
-{
-    test: /\.scss$/,
-    loaders: [
-        'css-loader',
-        'sass-loader'
-    ],
-    exclude: /node_modules/
-},
-{
-    test: /\.(jpg|png|gif)$/,
-    loader: 'file-loader',
-    options: {
-        regExp: /(img\/.*)/,
-        name: '[name].[ext]',
-        publicPath: '/dist/',
-        outputPath: 'assets/img/'
+webpackConfig.module.rules = [
+    ...webpackConfig.module.rules,
+    {
+        test: /\.scss$/,
+        loaders: [
+            'css-loader',
+            'sass-loader'
+        ],
+        exclude: /node_modules/
+    },
+    {
+        test: /\.(jpg|png|gif)$/,
+        loader: 'file-loader',
+        options: {
+            regExp: /(img\/.*)/,
+            name: '[name].[ext]',
+            publicPath: '/dist/',
+            outputPath: 'assets/img/'
+        }
+    },
+    {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'file-loader',
+        options: {
+            regExp: /(fonts\/.*)/,
+            name: '[name].[ext]',
+            publicPath: '/dist/',
+            outputPath: 'fonts/'
+        }
     }
-},
-{
-    test: /\.(eot|svg|ttf|woff|woff2)$/,
-    loader: 'file-loader',
-    options: {
-        regExp: /(fonts\/.*)/,
-        name: '[name].[ext]',
-        publicPath: '/dist/',
-        outputPath: 'fonts/'
-    }
-}
 ]
 
 webpackConfig.optimization = {

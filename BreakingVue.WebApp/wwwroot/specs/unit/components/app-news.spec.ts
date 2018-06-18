@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect, assert } from 'chai';
 import axios from 'axios';
 import moxios from 'moxios';
 import sinon from 'sinon';
@@ -63,7 +63,51 @@ describe('#AppNews', () => {
         expect(wrapper.vm.$data.news).to.be.a('array').and.deep.equal([]);
     })
 
-    it('when load then retrieves news from /v1/getNews', (done) => {       
+    it('when "getNews" invoke then return an list of articles', function () {
+        wrapper.vm.getNews().then((data: any) => {
+            expect(data).to.be.deep.equal(sampleResponse);
+        });
+    })
+
+    it('given "getNews" invoke when response is full filled then return an list of articles', function () {
+        let response = {
+            status: sampleResponse.status,
+            data: sampleResponse.response
+        };
+        expect(wrapper.vm.onNewsRequestFullFilled(response)).to.be.deep.equal(response.data.articles);
+    })
+
+    it('given "getNews" invoke when response is rejected then return an list of articles', function () {
+        let response = {
+            status: sampleResponse.status,
+            data: sampleResponse.response
+        };
+        expect(function() { wrapper.vm.onNewsRequestRejected(response); }).to.throw(JSON.stringify(response));
+    })
+
+    it('when "search" invoke then return an list of articles', function () {
+        wrapper.vm.searchNews().then((data: any) => {
+            expect(data).to.be.deep.equal(sampleResponse);
+        });
+    })
+
+    it('given "searchNews" invoke when response is full filled then return an list of articles', function () {
+        let response = {
+            status: sampleResponse.status,
+            data: sampleResponse.response
+        };
+        expect(wrapper.vm.onNewsRequestFullFilled(response)).to.be.deep.equal(response.data.articles);
+    })
+
+    it('given "searchNews" invoke when response is rejected then return an list of articles', function () {
+        let response = {
+            status: sampleResponse.status,
+            data: sampleResponse.response
+        };
+        expect(function() { wrapper.vm.onNewsRequestRejected(response); }).to.throw(JSON.stringify(response));
+    })
+
+    it('when load then retrieves news from /v1/getNews', (done) => {
         axios.get('/v1/getNews').then(onFulfilled);
         moxios.wait(() => {
             let response = onFulfilled.getCall(0).args[0].data;
@@ -73,7 +117,7 @@ describe('#AppNews', () => {
         })
     })
 
-    it('when load then retrieves news from /v1/search', (done) => {       
+    it('when load then retrieves news from /v1/search', (done) => {
         axios.get('/v1/search').then(onFulfilled);
         moxios.wait(() => {
             let response = onFulfilled.getCall(0).args[0].data;

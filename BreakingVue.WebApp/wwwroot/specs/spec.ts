@@ -1,6 +1,3 @@
-import Vue from 'vue'
+import { requireAll } from './utils';
 
-requireAll((require as any).context('.', true, /spec.ts$/));
-function requireAll(r: any): any {
-    r.keys().forEach(r);
-}
+requireAll((require as any).context('./unit', true, /spec.ts$/));
