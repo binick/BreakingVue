@@ -11,7 +11,8 @@ module.exports = function (config) {
             'sinon'
         ],
         files: [
-            { pattern: 'specs/coverage.bundle.js', watch: true }
+            //{ pattern: 'src/**/*.ts', watch: true },
+            { pattern: 'specs/coverage.ts', watch: true }
         ],
         reporters: ['coverage-istanbul'],
         coverageIstanbulReporter: {
@@ -23,7 +24,41 @@ module.exports = function (config) {
         preprocessors: {
             'specs/coverage.ts': ['webpack']
         },
-        webpack: webpackConfig,
+        webpack: {
+            module: {
+                rules: [
+                    {
+                        test: /\.(tsx?)|(js)$/,
+                        exclude: /node_modules/,
+                        loader: 'babel-loader'
+                    },
+                    {
+                        test: /\.vue$/,
+                        loader: 'vue-loader',
+                        exclude: /node_modules/,
+                        options: {
+                            loaders: {
+                                'scss': 'vue-style-loader!css-loader!sass-loader',
+                                'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
+                                'ts': 'babel-loader'
+                            }
+                        }
+                    },
+                    {
+                        test: /\.ts$/,
+                        enforce: 'post',
+                        use: {
+                            loader: 'istanbul-instrumenter-loader',
+                            options: { esModules: true }
+                        },
+                        exclude: [
+                            'node_modules',
+                            /\.spec\.ts$/
+                        ]
+                    }
+                ]
+            }
+        },
         webpackServer: {
             noInfo: true
         },

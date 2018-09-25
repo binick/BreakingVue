@@ -6,7 +6,7 @@ import { shallowMount, Wrapper } from '@vue/test-utils';
 import AppHeader from '../../../src/components/app-header/app-header.vue';
 
 describe('#AppHeader', () => {
-    let wrapper: Wrapper<AppHeader>;
+    let wrapper: Wrapper<any>;
 
     beforeEach(() => {
         wrapper = shallowMount(AppHeader);

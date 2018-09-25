@@ -34,7 +34,7 @@ describe('#AppArticle', () => {
         , ''
         , '2018-06-10T17:01:06.911Z')
 
-    let wrapper: Wrapper<AppArticle>;
+    let wrapper: Wrapper<any>;
     
     before(() => {
         wrapper = shallowMount(AppArticle, {
@@ -61,7 +61,7 @@ describe('#AppArticle', () => {
         let wrapper = shallowMount(AppArticle, {
             propsData: {
                 article: dangerArticle
-            }
+            }           
         });
         assert(wrapper.vm.isTrump);
     })

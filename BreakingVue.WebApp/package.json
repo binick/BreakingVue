@@ -8,14 +8,14 @@
         "dev": "gulp debug",
         "build": "npm run compile:prod && npm run test",
         "compile:prod": "webpack --mode=production --config wwwroot/config/webpack.config.prod.js",
-        "compile:dev": "webpack --mode=development --watch --config wwwroot/config/webpack.config.dev.js",
-        "compile:test": "webpack --mode=development --watch --config wwwroot/config/webpack.config.test.js",
+        "compile:dev": "webpack --mode=development --config wwwroot/config/webpack.config.dev.js",
+        "compile:test": "webpack --mode=development --config wwwroot/config/webpack.config.test.js",
         "compile:coverage": "webpack --mode=development --config wwwroot/config/webpack.config.coverage.js",
         "test": "karma start wwwroot/config/karma.unit.js",
         "test:debug": "karma start wwwroot/config/karma.debug.js",
         "test:watch": "karma start wwwroot/config/karma.unit.js --singleRun=false --auto-watch",
-        "coverage": "npm run compile:coverage && karma start wwwroot/config/karma.coverage.js",
-        "coverage:debug": "npm run compile:coverage && karma start wwwroot/config/karma.coverage.js --singleRun=false --auto-watch"
+        "coverage": "karma start wwwroot/config/karma.coverage.js",
+        "coverage:debug": "karma start wwwroot/config/karma.coverage.js --singleRun=false --auto-watch"
     },
     "repository": {
         "url": "https://github.com/nicolabiancolini"

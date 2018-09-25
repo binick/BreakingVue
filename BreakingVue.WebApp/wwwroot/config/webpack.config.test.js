@@ -21,12 +21,6 @@ webpackConfig.module.rules = [
         loader: 'html-loader'
     }
 ]
-// webpackConfig.plugins = [
-//     new webpack.SourceMapDevToolPlugin({
-//         filename: null, // if no value is provided the sourcemap is inlined
-//         test: /\.(ts|js)($|\?)/i
-//     })
-// ]
 
 webpackConfig.mode = 'development'
 

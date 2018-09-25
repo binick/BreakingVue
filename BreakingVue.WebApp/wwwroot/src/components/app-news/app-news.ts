@@ -33,18 +33,18 @@ export default class AppNews extends Vue {
     }
 
     async getNews(): Promise<Article[]> {
-        return await Axios.get('/v1/getNews').then((response) => {
+        return await Axios.get('/v1/getNews').then((response: AxiosResponse<any>) => {
             return this.onNewsRequestFullFilled(response);
-        }, (response) => {
-            return this.onNewsRequestRejected(response);
+        }, (response: any) => {
+            throw this.onNewsRequestRejected(response);
         });
     }
 
     async searchNews(value: string): Promise<Article[]> {
-        return await Axios.get('/v1/search/' + value).then((response) => {
+        return await Axios.get('/v1/search/' + value).then((response: AxiosResponse<any>) => {
             return this.onNewsRequestFullFilled(response);
-        }, (response) => {
-            return this.onNewsRequestRejected(response);
+        }, (response: any) => {
+            throw this.onNewsRequestRejected(response);
         });
     }
 
@@ -53,8 +53,8 @@ export default class AppNews extends Vue {
         return (response.data.articles as Article[]);
     }
 
-    onNewsRequestRejected(response: AxiosResponse<any>): Article[] {
+    onNewsRequestRejected(response: any): Error {
         console.log(response);
-        throw new Error(JSON.stringify(response));
+        return new Error(JSON.stringify(response));
     }
 }

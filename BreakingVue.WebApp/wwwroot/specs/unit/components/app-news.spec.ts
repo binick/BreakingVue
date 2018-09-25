@@ -1,5 +1,5 @@
-import { expect, assert } from 'chai';
-import axios from 'axios';
+import { expect, assert, should } from 'chai';
+import axios, { AxiosResponse } from 'axios';
 import moxios from 'moxios';
 import sinon from 'sinon';
 
@@ -8,7 +8,7 @@ import { shallowMount, Wrapper } from '@vue/test-utils';
 import AppNews from '../../../src/components/app-news/app-news.vue';
 
 describe('#AppNews', () => {
-    let wrapper: Wrapper<AppNews>;
+    let wrapper: Wrapper<any>;
 
     const sampleResponse = {
         status: 200,
@@ -57,19 +57,33 @@ describe('#AppNews', () => {
 
     afterEach(() => {
         moxios.uninstall();
+        sinon.restore();
     })
 
     it('when load then "news" is empty array', () => {
         expect(wrapper.vm.$data.news).to.be.a('array').and.deep.equal([]);
     })
 
-    it('when "getNews" invoke then return an list of articles', function () {
-        wrapper.vm.getNews().then((data: any) => {
+    it('when "getNews" invoke then if success return an list of articles', (done) => {
+        let onFulfilled = new Promise((data, _) => data(sampleResponse));
+        sinon.stub(axios, 'get').returns(onFulfilled);
+
+        wrapper.vm.getNews().then((data: AxiosResponse<any>) => {
             expect(data).to.be.deep.equal(sampleResponse);
-        });
+        }).finally(() => { done(); });
     })
 
-    it('given "getNews" invoke when response is full filled then return an list of articles', function () {
+    it('when "getNews" invoke then if rejected return an error', (done) => {
+        let onRejected = new Promise((_, r) => r());
+        sinon.stub(axios, 'get').returns(onRejected);
+
+        wrapper.vm.getNews().then((_: any) => { }, (reason: any) => {
+            expect(reason).to.be.instanceof(Error);
+            expect(reason).to.be.undefined;
+        }).finally(() => { done(); });
+    })
+
+    it('given "getNews" invoke when response is full filled then return an list of articles', () => {
         let response = {
             status: sampleResponse.status,
             data: sampleResponse.response
@@ -77,21 +91,36 @@ describe('#AppNews', () => {
         expect(wrapper.vm.onNewsRequestFullFilled(response)).to.be.deep.equal(response.data.articles);
     })
 
-    it('given "getNews" invoke when response is rejected then return an list of articles', function () {
+    it('given "getNews" invoke when response is rejected then return an list of articles', () => {
         let response = {
             status: sampleResponse.status,
             data: sampleResponse.response
         };
-        expect(function() { wrapper.vm.onNewsRequestRejected(response); }).to.throw(JSON.stringify(response));
+        let error = wrapper.vm.onNewsRequestRejected(response);
+        expect(error).to.be.instanceof(Error);
+        expect(error.message).to.be.equal(JSON.stringify(response));
     })
 
-    it('when "search" invoke then return an list of articles', function () {
-        wrapper.vm.searchNews().then((data: any) => {
+    it('when "searchNews" invoke then return an list of articles', (done) => {
+        let onFulfilled = new Promise((data, _) => data(sampleResponse));
+        sinon.stub(axios, 'get').returns(onFulfilled);
+
+        wrapper.vm.searchNews().then((data: AxiosResponse<any>) => {
             expect(data).to.be.deep.equal(sampleResponse);
-        });
+        }).finally(() => { done(); });
     })
 
-    it('given "searchNews" invoke when response is full filled then return an list of articles', function () {
+    it('when "searchNews" invoke then if rejected return an error', (done) => {
+        let onRejected = new Promise((_, r) => r());
+        sinon.stub(axios, 'get').returns(onRejected);
+
+        wrapper.vm.searchNews().then((_: any) => { }, (reason: any) => {
+            expect(reason).to.be.instanceof(Error);
+            expect(reason).to.be.undefined;
+        }).finally(() => { done(); });
+    })
+
+    it('given "searchNews" invoke when response is full filled then return an list of articles', () => {
         let response = {
             status: sampleResponse.status,
             data: sampleResponse.response
@@ -99,12 +128,14 @@ describe('#AppNews', () => {
         expect(wrapper.vm.onNewsRequestFullFilled(response)).to.be.deep.equal(response.data.articles);
     })
 
-    it('given "searchNews" invoke when response is rejected then return an list of articles', function () {
+    it('given "searchNews" invoke when response is rejected then return an list of articles', () => {
         let response = {
             status: sampleResponse.status,
             data: sampleResponse.response
         };
-        expect(function() { wrapper.vm.onNewsRequestRejected(response); }).to.throw(JSON.stringify(response));
+        let error = wrapper.vm.onNewsRequestRejected(response);
+        expect(error).to.be.instanceof(Error);
+        expect(error.message).to.be.equal(JSON.stringify(response));
     })
 
     it('when load then retrieves news from /v1/getNews', (done) => {
